@@ -5,20 +5,21 @@
   function createSnow() {
     var snow = document.getElementById("snow");
     var style = document.documentElement.style;
+    var flakeCount = 44;
     var fragment, flake, size, duration, delay, i;
     if (!snow || !("animationName" in style || "webkitAnimationName" in style)) { return; }
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { return; }
     fragment = document.createDocumentFragment();
-    for (i = 0; i < 28; i += 1) {
+    for (i = 0; i < flakeCount; i += 1) {
       flake = document.createElement("span");
       flake.className = "snowflake" + (i % 5 === 0 ? " golden" : "");
-      size = 3 + Math.random() * 4;
+      size = 4 + Math.random() * 4;
       duration = 28 + Math.random() * 22;
       delay = (-Math.random() * duration).toFixed(2) + "s";
-      flake.style.left = (i * 100 / 28 + Math.random() * 2).toFixed(2) + "%";
+      flake.style.left = (i * 100 / flakeCount + Math.random() * 2).toFixed(2) + "%";
       flake.style.width = size.toFixed(1) + "px";
       flake.style.height = size.toFixed(1) + "px";
-      flake.style.opacity = (0.20 + Math.random() * 0.35).toFixed(2);
+      flake.style.opacity = (0.28 + Math.random() * 0.35).toFixed(2);
       flake.style.webkitAnimationDuration = duration.toFixed(2) + "s";
       flake.style.animationDuration = duration.toFixed(2) + "s";
       flake.style.webkitAnimationDelay = delay;
