@@ -23,3 +23,11 @@ Background made with the built-in OpenAI image generation tool for this page.
 Prompt summary: a warm ivory gouache Christmas card with evergreen branches,
 red ribbons, a decorated tree and two cuddling rabbits, with an empty center
 for the names. The source image is used without edits.
+
+## Font
+
+Delius — Natalia Raices and Igino Marini.
+Bundled unmodified under the SIL Open Font License 1.1.
+The full copyright notice and license are in assets/fonts/OFL.txt.
+
+Source: https://github.com/google/fonts/tree/main/ofl/delius

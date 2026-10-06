@@ -1,4 +1,11 @@
-/* No frameworks, web fonts, filters or continuously growing animation lists. */
+/* One bundled static font; no external font service or variable font required. */
+@font-face {
+  font-family: "Delius";
+  src: url("./assets/fonts/Delius-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 html, body {
   width: 100%; height: 100%;
   margin: 0; padding: 0;
@@ -19,20 +26,21 @@ body { color: #284c3a; font-family: Georgia, "Times New Roman", serif; }
   text-align: center; pointer-events: none;
 }
 .greeting-inner { display: table-cell; vertical-align: middle; padding: 0 8%; }
+h1, .greeting p { font-family: "Delius", "Trebuchet MS", sans-serif; }
 .heart {
   margin-bottom: 18px; margin-bottom: 1.8vh;
   color: #a84743; font-size: 30px; font-size: 2.4vw; line-height: 1;
 }
 h1 {
   margin: 0; font-size: 100px; font-size: 8.2vw;
-  font-weight: normal; line-height: 1.24; letter-spacing: 0.015em;
+  font-weight: normal; line-height: 1.24; letter-spacing: 0.025em;
   white-space: nowrap;
 }
-.ampersand { color: #ac5148; font-style: italic; font-size: 0.82em; }
+.ampersand { color: #ac5148; font-style: normal; font-size: 0.82em; }
 .greeting p {
   margin: 24px 0 0; margin-top: 2.6vh;
   color: #8c413a; font-size: 32px; font-size: 2.65vw;
-  line-height: 1.5; letter-spacing: 0.10em;
+  line-height: 1.5; letter-spacing: 0.045em;
 }
 .flourish {
   margin-top: 24px; margin-top: 2.6vh;
@@ -49,19 +57,25 @@ h1 {
   border: 2px solid #8d433b; border-radius: 30px;
   background: #a44b42; color: #fff8e8;
   font: inherit; font-size: 22px; font-size: 1.55vw;
+  font-family: "Delius", "Trebuchet MS", sans-serif;
   line-height: 1.4; cursor: pointer;
 }
-#music-toggle:focus, .music-credit a:focus {
+#music-toggle:focus { outline: none; }
+.keyboard-controls #music-toggle:focus, .music-credit a:focus {
   outline: 3px solid #365b43; outline-offset: 5px;
 }
 #music-toggle:disabled { opacity: 0.6; cursor: default; }
 #music-toggle[aria-pressed="true"] {
   background: #f5eddb; color: #6b4436; border-color: #b59674;
 }
-#music-status {
+#music-help, #music-status {
   margin: 0.7em 0 0; font-size: 17px; font-size: 1.1vw;
   line-height: 1.5; color: #665d48;
 }
+#music-help { visibility: hidden; }
+#music-toggle:hover + #music-help,
+.keyboard-controls #music-toggle:focus + #music-help { visibility: visible; }
+#music-status:empty { display: none; }
 .music-credit { margin: 0.8em 0 0; font-size: 12px; font-size: 0.85vw; line-height: 1.5; }
 .music-credit, .music-credit a { color: #71664f; }
 .music-credit a { text-decoration: underline; }
@@ -93,6 +107,6 @@ h1 {
   .flourish { font-size: 3vw; }
   .music-panel { right: 8%; left: 8%; bottom: 13%; }
   #music-toggle { font-size: 18px; min-width: 180px; }
-  #music-status { font-size: 14px; }
+  #music-help, #music-status { font-size: 14px; }
   .music-credit { font-size: 11px; }
 }

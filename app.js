@@ -5,7 +5,7 @@
   function createSnow() {
     var snow = document.getElementById("snow");
     var style = document.documentElement.style;
-    var flakeCount = 44;
+    var flakeCount = 68;
     var fragment, flake, size, duration, delay, i;
     if (!snow || !("animationName" in style || "webkitAnimationName" in style)) { return; }
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { return; }
@@ -38,7 +38,7 @@
 
     function setState(playing, message) {
       button.setAttribute("aria-pressed", playing ? "true" : "false");
-      button.textContent = playing ? "音楽を止める" : "音楽を流す";
+      button.textContent = playing ? "Pause music" : "Play music";
       status.textContent = message;
     }
 
@@ -57,7 +57,21 @@
 
     music.volume = 0.35;
     button.disabled = false;
-    status.textContent = "決定ボタンで再生・停止 / 約20分のBGMをくり返します";
+    status.textContent = "";
+
+    /* Show help for actual keyboard/remote use, not programmatic initial focus. */
+    document.addEventListener("keydown", function () {
+      button.parentNode.className = "music-panel keyboard-controls";
+    }, true);
+    document.addEventListener("mousemove", function () {
+      button.parentNode.className = "music-panel";
+    }, true);
+    document.addEventListener("mousedown", function () {
+      button.parentNode.className = "music-panel";
+    }, true);
+    document.addEventListener("touchstart", function () {
+      button.parentNode.className = "music-panel";
+    }, true);
 
     button.addEventListener("click", function () {
       var result, currentAttempt;
@@ -65,7 +79,7 @@
         wanted = false;
         attempt += 1;
         music.pause();
-        setState(false, "音楽はお休み中です");
+        setState(false, "");
         return;
       }
       wanted = true;
@@ -91,7 +105,7 @@
 
     music.addEventListener("playing", function () {
       if (!wanted) { music.pause(); return; }
-      setState(true, "小さな音で、クリスマスのひとときを");
+      setState(true, "");
     }, false);
     music.addEventListener("waiting", function () {
       if (wanted) { status.textContent = "音楽を読み込んでいます…"; }
@@ -100,7 +114,7 @@
       if (wanted) {
         wanted = false;
         attempt += 1;
-        setState(false, "音楽はお休み中です。決定ボタンで再開できます");
+        setState(false, "");
       }
     }, false);
     music.addEventListener("error", function () {
