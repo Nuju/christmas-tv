@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102922">
+  <meta name="theme-color" content="#f7efdd">
   <title>Miki &amp; Saki — Merry Christmas 2026</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div class="scene">
-    <div class="frame" aria-hidden="true"></div>
     <div id="snow" class="snow" aria-hidden="true"></div>
     <main class="greeting">
       <div class="greeting-inner">
-        <div class="star" aria-hidden="true">&#10022;</div>
-        <h1>Miki <span class="ampersand">&amp;</span> Saki</h1>
-        <p>Merry Christmas 2026</p>
-        <div class="flourish" aria-hidden="true"><span></span></div>
+        <div class="heart" aria-hidden="true">&#9829;</div>
+        <h1 lang="en">Miki <span class="ampersand">&amp;</span> Saki</h1>
+        <p lang="en">Merry Christmas 2026</p>
+        <div class="flourish" aria-hidden="true">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
       </div>
     </main>
+    <div class="music-panel">
+      <button id="music-toggle" type="button" aria-controls="background-music" aria-pressed="false" disabled>音楽を流す</button>
+      <p id="music-status" role="status" aria-live="polite">音楽にはJavaScriptが必要です</p>
+      <p class="music-credit" lang="en">
+        <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100391" target="_blank" rel="noopener noreferrer">Wish Background — Kevin MacLeod</a>
+        <span aria-hidden="true"> / </span>
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
+      </p>
+    </div>
+    <audio id="background-music" src="./assets/wish-background.mp3" preload="none" loop></audio>
   </div>
   <script src="./app.js"></script>
 </body>
