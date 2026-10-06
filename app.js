@@ -5,7 +5,7 @@
   function createSnow() {
     var snow = document.getElementById("snow");
     var style = document.documentElement.style;
-    var flakeCount = 68;
+    var flakeCount = 100;
     var fragment, flake, size, duration, delay, i;
     if (!snow || !("animationName" in style || "webkitAnimationName" in style)) { return; }
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { return; }
