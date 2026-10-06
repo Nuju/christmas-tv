@@ -1,0 +1,157 @@
+/* Static, full-viewport fallback; no web fonts or external assets. */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #102922;
+}
+
+body {
+  color: #f5ead3;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.scene {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  background: #102922;
+  background-image:
+    radial-gradient(ellipse at 50% 43%, rgba(163, 132, 73, 0.14) 0%, rgba(16, 41, 34, 0) 58%),
+    radial-gradient(ellipse at 50% 50%, #1b3a2e 0%, #0a201c 100%);
+}
+
+/* A generous inset keeps the greeting away from TV overscan edges. */
+.frame {
+  position: absolute;
+  top: 6%;
+  right: 4%;
+  bottom: 6%;
+  left: 4%;
+  border: 1px solid #58604a;
+  border-color: rgba(199, 173, 112, 0.28);
+}
+
+.greeting {
+  position: relative;
+  z-index: 2;
+  display: table;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.greeting-inner {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 8%;
+}
+
+.star {
+  margin-bottom: 26px;
+  margin-bottom: 2.4vh;
+  color: #d7bb7e;
+  font-size: 42px;
+  font-size: 3.2vw;
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(215, 187, 126, 0.2);
+}
+
+h1 {
+  margin: 0;
+  font-size: 100px;
+  font-size: 8.6vw;
+  font-weight: normal;
+  line-height: 1.24;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.16);
+}
+
+.ampersand {
+  color: #d7bb7e;
+  font-style: italic;
+  font-size: 0.82em;
+}
+
+.greeting p {
+  margin: 24px 0 0;
+  margin-top: 2.6vh;
+  color: #dccca9;
+  font-size: 32px;
+  font-size: 2.65vw;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+}
+
+.flourish {
+  position: relative;
+  width: 170px;
+  width: 12vw;
+  height: 1px;
+  margin: 42px auto 0;
+  margin-top: 4.5vh;
+  background: #7c7957;
+  background: rgba(199, 173, 112, 0.44);
+}
+
+.flourish span {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -4px;
+  background: #c7ad70;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.snow {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.snowflake {
+  position: absolute;
+  top: -12px;
+  border-radius: 50%;
+  background: #f5ead3;
+  -webkit-animation: snowfall linear infinite;
+  animation: snowfall linear infinite;
+}
+
+/* Only transforms animate. The small, fixed set of flakes is reused forever. */
+@-webkit-keyframes snowfall {
+  from { -webkit-transform: translate(0, 0); }
+  to { -webkit-transform: translate(32px, 110vh); }
+}
+
+@keyframes snowfall {
+  from { transform: translate(0, 0); }
+  to { transform: translate(32px, 110vh); }
+}
+
+/* Progressive enhancement: older browsers simply ignore this preference. */
+@media (prefers-reduced-motion: reduce) {
+  .snow { display: none; }
+}
+
+@media screen and (max-aspect-ratio: 4/3) {
+  h1 { font-size: 9.5vw; }
+  .greeting p { font-size: 3.6vw; letter-spacing: 0.08em; }
+  .star { font-size: 5vw; }
+  .flourish { width: 22vw; }
+}
