@@ -59,6 +59,8 @@ h1 {
   font: inherit; font-size: 22px; font-size: 1.55vw;
   font-family: "Delius", "Trebuchet MS", sans-serif;
   line-height: 1.4; cursor: pointer;
+  -webkit-transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease;
 }
 #music-toggle:focus { outline: none; }
 .keyboard-controls #music-toggle:focus, .music-credit a:focus {
@@ -76,6 +78,11 @@ h1 {
 #music-toggle:hover + #music-help,
 .keyboard-controls #music-toggle:focus + #music-help { visibility: visible; }
 #music-status:empty { display: none; }
+/* Preserve layout and credits while fading the inactive playback button. */
+.music-idle #music-toggle { opacity: 0; pointer-events: none; }
+.music-idle #music-toggle:hover + #music-help,
+.music-idle #music-toggle:focus + #music-help,
+.music-idle #music-help { visibility: hidden; }
 .music-credit { margin: 0.8em 0 0; font-size: 12px; font-size: 0.85vw; line-height: 1.5; }
 .music-credit, .music-credit a { color: #71664f; }
 .music-credit a { text-decoration: underline; }
@@ -98,7 +105,10 @@ h1 {
   from { transform: translate(0, 0); }
   to { transform: translate(32px, 110vh); }
 }
-@media (prefers-reduced-motion: reduce) { .snow { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .snow { display: none; }
+  #music-toggle { -webkit-transition: none; transition: none; }
+}
 @media screen and (max-aspect-ratio: 4/3) {
   .scene { background-size: auto 100%; }
   h1 { font-size: 10vw; }

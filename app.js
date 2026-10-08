@@ -35,11 +35,45 @@
     var status = document.getElementById("music-status");
     var wanted = false;
     var attempt = 0;
+    var idleTimer = null;
+    var controlsHidden = false;
+    var keyboardMode = false;
+    var canHideControls = false;
+    var wakeKey = 0;
+
+    function updateControls() {
+      button.parentNode.className = "music-panel" +
+        (keyboardMode ? " keyboard-controls" : "") +
+        (controlsHidden ? " music-idle" : "");
+    }
+
+    function showControls() {
+      if (idleTimer !== null) { window.clearTimeout(idleTimer); }
+      idleTimer = null;
+      controlsHidden = false;
+      updateControls();
+      if (canHideControls && wanted && !music.paused) {
+        idleTimer = window.setTimeout(function () {
+          idleTimer = null;
+          if (canHideControls && wanted && !music.paused) {
+            controlsHidden = true;
+            updateControls();
+          }
+        }, 8000);
+      }
+    }
+
+    function pointerActivity() {
+      keyboardMode = false;
+      showControls();
+    }
 
     function setState(playing, message) {
       button.setAttribute("aria-pressed", playing ? "true" : "false");
       button.textContent = playing ? "Pause music" : "Play music";
       status.textContent = message;
+      canHideControls = playing && !message;
+      showControls();
     }
 
     function failed(message) {
@@ -60,18 +94,30 @@
     status.textContent = "";
 
     /* Show help for actual keyboard/remote use, not programmatic initial focus. */
-    document.addEventListener("keydown", function () {
-      button.parentNode.className = "music-panel keyboard-controls";
+    document.addEventListener("keydown", function (event) {
+      var wasHidden = controlsHidden;
+      var code = event.keyCode || event.which;
+      keyboardMode = true;
+      showControls();
+      /* The first Enter/Space wakes a hidden button without stopping music. */
+      if ((wasHidden && (code === 13 || code === 32) &&
+          (document.activeElement === button || document.activeElement === document.body)) ||
+          (wakeKey && wakeKey === code)) {
+        wakeKey = code;
+        event.preventDefault();
+        button.focus();
+      }
     }, true);
-    document.addEventListener("mousemove", function () {
-      button.parentNode.className = "music-panel";
+    document.addEventListener("keyup", function (event) {
+      if (wakeKey && wakeKey === (event.keyCode || event.which)) {
+        event.preventDefault();
+        wakeKey = 0;
+      }
     }, true);
-    document.addEventListener("mousedown", function () {
-      button.parentNode.className = "music-panel";
-    }, true);
-    document.addEventListener("touchstart", function () {
-      button.parentNode.className = "music-panel";
-    }, true);
+    document.addEventListener("mousemove", pointerActivity, true);
+    document.addEventListener("mousedown", pointerActivity, true);
+    document.addEventListener("touchstart", pointerActivity, true);
+    button.addEventListener("focus", showControls, false);
 
     button.addEventListener("click", function () {
       var result, currentAttempt;
@@ -108,7 +154,7 @@
       setState(true, "");
     }, false);
     music.addEventListener("waiting", function () {
-      if (wanted) { status.textContent = "音楽を読み込んでいます…"; }
+      if (wanted) { setState(true, "音楽を読み込んでいます…"); }
     }, false);
     music.addEventListener("pause", function () {
       if (wanted) {
