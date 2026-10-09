@@ -51,7 +51,12 @@ h1 {
   right: 24%; bottom: 11%; left: 24%;
   text-align: center; font-family: "Yu Gothic", Meiryo, sans-serif;
 }
-#music-toggle {
+.music-controls {
+  -webkit-transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease;
+}
+.music-buttons { white-space: nowrap; }
+#music-toggle, .music-skip {
   min-width: 210px; min-width: 16vw;
   padding: 0.65em 1.6em;
   border: 2px solid #8d433b; border-radius: 30px;
@@ -59,33 +64,40 @@ h1 {
   font: inherit; font-size: 22px; font-size: 1.55vw;
   font-family: "Delius", "Trebuchet MS", sans-serif;
   line-height: 1.4; cursor: pointer;
-  -webkit-transition: opacity 0.6s ease;
-  transition: opacity 0.6s ease;
+  vertical-align: middle;
 }
-#music-toggle:focus { outline: none; }
-.keyboard-controls #music-toggle:focus, .music-credit a:focus {
+.music-skip {
+  min-width: 48px; min-width: 3.6vw;
+  margin: 0 0.35em; padding: 0.38em 0.55em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px; font-size: 2.1vw;
+  background: #f5eddb; color: #8d433b; border-color: #b59674;
+}
+#music-toggle:focus, .music-skip:focus { outline: none; }
+.keyboard-controls #music-toggle:focus,
+.keyboard-controls .music-skip:focus, .music-credit a:focus {
   outline: 3px solid #365b43; outline-offset: 5px;
 }
-#music-toggle:disabled { opacity: 0.6; cursor: default; }
+#music-toggle:disabled, .music-skip:disabled { opacity: 0.6; cursor: default; }
 #music-toggle[aria-pressed="true"] {
   background: #f5eddb; color: #6b4436; border-color: #b59674;
 }
-#music-help, #music-status {
+#music-track, #music-help, #music-status {
   margin: 0.7em 0 0; font-size: 17px; font-size: 1.1vw;
   line-height: 1.5; color: #665d48;
 }
+#music-track { color: #6b4436; }
 #music-help { visibility: hidden; }
-#music-toggle:hover + #music-help,
-.keyboard-controls #music-toggle:focus + #music-help { visibility: visible; }
+.music-controls:hover #music-help,
+.keyboard-controls #music-help { visibility: visible; }
 #music-status:empty { display: none; }
-/* Preserve layout and credits while fading the inactive playback button. */
-.music-idle #music-toggle { opacity: 0; pointer-events: none; }
-.music-idle #music-toggle:hover + #music-help,
-.music-idle #music-toggle:focus + #music-help,
+/* Preserve layout and credits while fading all inactive playback controls. */
+.music-idle .music-controls { opacity: 0; pointer-events: none; }
 .music-idle #music-help { visibility: hidden; }
 .music-credit { margin: 0.8em 0 0; font-size: 12px; font-size: 0.85vw; line-height: 1.5; }
 .music-credit, .music-credit a { color: #71664f; }
 .music-credit a { text-decoration: underline; }
+.music-license { white-space: nowrap; }
 .snow {
   position: absolute; z-index: 1;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -107,7 +119,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   .snow { display: none; }
-  #music-toggle { -webkit-transition: none; transition: none; }
+  .music-controls { -webkit-transition: none; transition: none; }
 }
 @media screen and (max-aspect-ratio: 4/3) {
   .scene { background-size: auto 100%; }
@@ -117,6 +129,7 @@ h1 {
   .flourish { font-size: 3vw; }
   .music-panel { right: 8%; left: 8%; bottom: 13%; }
   #music-toggle { font-size: 18px; min-width: 180px; }
-  #music-help, #music-status { font-size: 14px; }
+  .music-skip { font-size: 25px; min-width: 42px; }
+  #music-track, #music-help, #music-status { font-size: 14px; }
   .music-credit { font-size: 11px; }
 }

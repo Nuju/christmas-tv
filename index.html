@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7efdd">
   <title>Miki &amp; Saki — Merry Christmas 2026</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=20261009-music">
 </head>
 <body>
   <div class="scene">
@@ -18,18 +18,25 @@
         <div class="flourish" aria-hidden="true">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
       </div>
     </main>
-    <div class="music-panel">
-      <button id="music-toggle" type="button" lang="en" aria-controls="background-music" aria-describedby="music-help" aria-pressed="false" disabled>Play music</button>
-      <p id="music-help" role="tooltip">決定ボタンで再生・停止 / 約20分のBGMをくり返します</p>
+    <div id="music-panel" class="music-panel">
+      <div class="music-controls" role="group" aria-label="音楽の操作">
+        <div class="music-buttons">
+          <button id="music-previous" class="music-skip" type="button" aria-label="前の曲" aria-controls="background-music" aria-describedby="music-help" disabled>&#8249;</button>
+          <button id="music-toggle" type="button" lang="en" aria-controls="background-music" aria-describedby="music-track music-help" aria-pressed="false" disabled>Play music</button>
+          <button id="music-next" class="music-skip" type="button" aria-label="次の曲" aria-controls="background-music" aria-describedby="music-help" disabled>&#8250;</button>
+        </div>
+        <p id="music-track" aria-live="polite" aria-atomic="true">1 / 3　やさしいベルと合奏</p>
+        <p id="music-help" role="tooltip">決定で再生・停止 / 左右で選曲 / 選んだ曲をくり返します</p>
+      </div>
       <p id="music-status" role="status" aria-live="polite">音楽にはJavaScriptが必要です</p>
       <p class="music-credit" lang="en">
-        <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100391" target="_blank" rel="noopener noreferrer">Wish Background — Kevin MacLeod</a>
+        <a id="music-credit-track" href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100391" target="_blank" rel="noopener noreferrer">Wish Background — Kevin MacLeod</a>
         <span aria-hidden="true"> / </span>
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
+        <a class="music-license" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
       </p>
     </div>
     <audio id="background-music" src="./assets/wish-background.mp3" preload="none" loop></audio>
   </div>
-  <script src="./app.js"></script>
+  <script src="./app.js?v=20261009-music"></script>
 </body>
 </html>
