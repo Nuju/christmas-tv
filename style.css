@@ -20,6 +20,76 @@ body { color: #284c3a; font-family: Georgia, "Times New Roman", serif; }
   background: #f7efdd url("./assets/christmas-background.png") no-repeat center center;
   background-size: cover;
 }
+/* Match the 1672 x 941 background's centered cover crop at every viewport size. */
+.lantern-light {
+  position: absolute; z-index: 0;
+  top: 50%; left: 50%;
+  width: 100vw; height: 56.279904vw;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+@media screen and (max-aspect-ratio: 1672/941) {
+  .lantern-light { width: 177.683316vh; height: 100vh; }
+}
+.lantern-halo, .lantern-reflection, .lantern-flame {
+  position: absolute;
+  pointer-events: none;
+}
+.lantern-halo {
+  right: -5.6%; bottom: 0.5%; width: 17%; height: 31%;
+  background: radial-gradient(ellipse, rgba(255,183,60,0.48) 0%, rgba(255,194,65,0.18) 37%, rgba(255,210,100,0) 71%);
+  opacity: 0.84;
+  -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%;
+  -webkit-animation: lantern-glow 6.6s ease-in-out infinite;
+  animation: lantern-glow 6.6s ease-in-out infinite;
+}
+.lantern-reflection {
+  right: 0.55%; bottom: 7.6%; width: 4.5%; height: 11%;
+  border-radius: 10%;
+  background: radial-gradient(ellipse at 55% 50%, rgba(255,216,128,0.3) 0%, rgba(255,203,93,0) 76%);
+  opacity: 0.84;
+  -webkit-animation: lantern-glow 5.7s ease-in-out -2s infinite;
+  animation: lantern-glow 5.7s ease-in-out -2s infinite;
+}
+/* The painted candle's wick is at (1629, 813) in the original image. */
+.lantern-flame {
+  left: 97.009569%; top: 82.996812%; width: 0.837321%; height: 3.400638%;
+  border-radius: 53% 47% 47% 53% / 70% 65% 35% 30%;
+  background: #fff0b5;
+  background: radial-gradient(ellipse at 50% 70%, #fffceb 0%, #ffecac 28%, #ffc64c 66%, rgba(239,164,60,0.4) 100%);
+  box-shadow: 0 0 6px 2px rgba(255,206,92,0.36);
+  opacity: 0.96;
+  -webkit-transform-origin: 50% 100%; transform-origin: 50% 100%;
+  -webkit-animation: lantern-flame 4.5s ease-in-out infinite;
+  animation: lantern-flame 4.5s ease-in-out infinite;
+}
+@-webkit-keyframes lantern-flame {
+  0%, 100% { -webkit-transform: rotate(-2deg) scale(0.99, 1); opacity: 0.94; }
+  19% { -webkit-transform: rotate(2.6deg) scale(1.03, 0.96); opacity: 0.98; }
+  41% { -webkit-transform: rotate(-1deg) scale(0.96, 1.045); opacity: 0.94; }
+  67% { -webkit-transform: rotate(3deg) scale(1.025, 0.975); opacity: 0.97; }
+  83% { -webkit-transform: rotate(-2.5deg) scale(1, 1.025); opacity: 0.96; }
+}
+@keyframes lantern-flame {
+  0%, 100% { transform: rotate(-2deg) scale(0.99, 1); opacity: 0.94; }
+  19% { transform: rotate(2.6deg) scale(1.03, 0.96); opacity: 0.98; }
+  41% { transform: rotate(-1deg) scale(0.96, 1.045); opacity: 0.94; }
+  67% { transform: rotate(3deg) scale(1.025, 0.975); opacity: 0.97; }
+  83% { transform: rotate(-2.5deg) scale(1, 1.025); opacity: 0.96; }
+}
+@-webkit-keyframes lantern-glow {
+  0%, 100% { -webkit-transform: scale(1); opacity: 0.81; }
+  24% { -webkit-transform: scale(1.024, 0.989); opacity: 0.9; }
+  49% { -webkit-transform: scale(0.985, 1.018); opacity: 0.79; }
+  78% { -webkit-transform: scale(1.016); opacity: 0.92; }
+}
+@keyframes lantern-glow {
+  0%, 100% { transform: scale(1); opacity: 0.81; }
+  24% { transform: scale(1.024, 0.989); opacity: 0.9; }
+  49% { transform: scale(0.985, 1.018); opacity: 0.79; }
+  78% { transform: scale(1.016); opacity: 0.92; }
+}
 .greeting {
   position: relative; z-index: 2;
   display: table; width: 100%; height: 88%;
@@ -133,6 +203,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   .snow { display: none; }
+  .lantern-halo, .lantern-reflection, .lantern-flame { -webkit-animation: none; animation: none; }
   .music-controls, #music-status, #display-status { -webkit-transition: none; transition: none; }
 }
 @media screen and (max-aspect-ratio: 4/3) {
