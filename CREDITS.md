@@ -51,12 +51,29 @@ Accessed 2026-10-09.
 
 ### Playback
 
-The original MP3 recordings are included without edits. The player repeats the
-selected recording, with playback volume set to 35% for Wish Background, 50% for
-Deck the Halls A, and 75% for It Came Upon a Midnight Clear. These levels reduce
-the loudness differences between the recordings while keeping the added tracks
-slightly quieter on average. The active track's title, author, source link and
-CC BY 4.0 link remain visible when the playback controls fade out.
+The original MP3 recordings listed above remain included without edits as source
+files. The player uses compatibility versions in `assets/tv/`, produced with
+`scripts/prepare-tv-audio.py`. These versions have been re-encoded and their
+playback levels have been reduced; the music, arrangement and duration have not
+been intentionally changed.
+
+Each track has an AAC-LC version in an M4A container and a constant-bitrate MP3
+version. Both use 48 kHz stereo, without the original embedded artwork or legacy
+metadata. M4A files place their index before the audio data. The bitrate targets
+are 80 kbps in both formats for the long Wish Background recording, and 128 kbps
+AAC / 160 kbps MP3 for the two shorter recordings. The smaller Wish versions
+trade some audio fidelity for lower download size; the full-quality original
+remains available in `assets/wish-background.mp3`.
+
+AAC is preferred when supported, and the player offers an explicit AAC/MP3
+switch for devices that produce audible noise without reporting an error.
+
+The previous playback gains are now applied inside both versions: 35% for Wish
+Background, 50% for Deck the Halls A, and 75% for It Came Upon a Midnight Clear.
+The audio element uses volume 1 to avoid applying the reduction twice and to
+keep these levels on TVs that ignore the element's volume property. The selected
+track repeats. Its title, author, source link, CC BY 4.0 link and notice of the
+format/volume adjustments remain visible when the controls fade out.
 
 Track metadata source: https://incompetech.com/music/royalty-free/pieces.json
 

@@ -48,14 +48,14 @@ h1 {
 }
 .music-panel {
   position: absolute; z-index: 3;
-  right: 24%; bottom: 11%; left: 24%;
+  right: 22%; bottom: 6%; left: 22%;
   text-align: center; font-family: "Yu Gothic", Meiryo, sans-serif;
 }
-.music-controls {
+.music-controls, #music-status, #display-status {
   -webkit-transition: opacity 0.6s ease;
   transition: opacity 0.6s ease;
 }
-.music-buttons { white-space: nowrap; }
+.music-buttons, .display-buttons { white-space: nowrap; }
 #music-toggle, .music-skip {
   min-width: 210px; min-width: 16vw;
   padding: 0.65em 1.6em;
@@ -73,31 +73,48 @@ h1 {
   font-size: 28px; font-size: 2.1vw;
   background: #f5eddb; color: #8d433b; border-color: #b59674;
 }
-#music-toggle:focus, .music-skip:focus { outline: none; }
+#music-toggle:focus, .music-skip:focus, .setting-button:focus { outline: none; }
 .keyboard-controls #music-toggle:focus,
-.keyboard-controls .music-skip:focus, .music-credit a:focus {
+.keyboard-controls .music-skip:focus,
+.keyboard-controls .setting-button:focus, .music-credit a:focus {
   outline: 3px solid #365b43; outline-offset: 5px;
 }
-#music-toggle:disabled, .music-skip:disabled { opacity: 0.6; cursor: default; }
+#music-toggle:disabled, .music-skip:disabled, .setting-button:disabled { opacity: 0.6; cursor: default; }
 #music-toggle[aria-pressed="true"] {
   background: #f5eddb; color: #6b4436; border-color: #b59674;
 }
-#music-track, #music-help, #music-status {
+#music-track, #music-help, #audio-help, #music-status, #display-status {
   margin: 0.7em 0 0; font-size: 17px; font-size: 1.1vw;
   line-height: 1.5; color: #665d48;
 }
 #music-track { color: #6b4436; }
-#music-help { visibility: hidden; }
+#music-help, #audio-help { visibility: hidden; }
 .music-controls:hover #music-help,
-.keyboard-controls #music-help { visibility: visible; }
-#music-status:empty { display: none; }
+.music-controls:hover #audio-help,
+.keyboard-controls #music-help,
+.keyboard-controls #audio-help { visibility: visible; }
+#audio-help { margin-top: 0.25em; font-size: 15px; font-size: 0.95vw; }
+#music-status:empty, #display-status:empty { display: none; }
+.display-buttons { margin-top: 0.65em; }
+.setting-button {
+  min-width: 110px; min-width: 8.4vw;
+  margin: 0 0.25em; padding: 0.45em 0.8em;
+  border: 1px solid #b59674; border-radius: 22px;
+  background: #f5eddb; color: #6b4436;
+  font: inherit; font-size: 16px; font-size: 1.08vw; line-height: 1.5;
+  vertical-align: middle; cursor: pointer;
+}
+#fullscreen-toggle[aria-pressed="true"] { background: #e4ecdc; border-color: #71866a; }
 /* Preserve layout and credits while fading all inactive playback controls. */
-.music-idle .music-controls { opacity: 0; pointer-events: none; }
-.music-idle #music-help { visibility: hidden; }
+.music-idle .music-controls, .music-idle #music-status, .music-idle #display-status {
+  opacity: 0; pointer-events: none;
+}
+.music-idle #music-help, .music-idle #audio-help { visibility: hidden; }
 .music-credit { margin: 0.8em 0 0; font-size: 12px; font-size: 0.85vw; line-height: 1.5; }
 .music-credit, .music-credit a { color: #71664f; }
 .music-credit a { text-decoration: underline; }
 .music-license { white-space: nowrap; }
+.audio-adaptation { display: inline-block; font-size: 0.85em; }
 .snow {
   position: absolute; z-index: 1;
   top: 0; right: 0; bottom: 0; left: 0;
@@ -119,7 +136,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   .snow { display: none; }
-  .music-controls { -webkit-transition: none; transition: none; }
+  .music-controls, #music-status, #display-status { -webkit-transition: none; transition: none; }
 }
 @media screen and (max-aspect-ratio: 4/3) {
   .scene { background-size: auto 100%; }
@@ -127,9 +144,11 @@ h1 {
   .greeting p { font-size: 4vw; letter-spacing: 0.04em; }
   .heart { font-size: 5vw; }
   .flourish { font-size: 3vw; }
-  .music-panel { right: 8%; left: 8%; bottom: 13%; }
+  .music-panel { right: 6%; left: 6%; bottom: 6%; }
   #music-toggle { font-size: 18px; min-width: 180px; }
   .music-skip { font-size: 25px; min-width: 42px; }
-  #music-track, #music-help, #music-status { font-size: 14px; }
+  .setting-button { font-size: 14px; min-width: 110px; }
+  #music-track, #music-help, #music-status, #display-status { font-size: 14px; }
+  #audio-help { font-size: 12px; }
   .music-credit { font-size: 11px; }
 }
