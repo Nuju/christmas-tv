@@ -102,6 +102,21 @@ async function picture(page, name) {
     assert.equal(await page.locator('button:enabled').count(), 4);
     assert.equal(await page.locator('#audio-format-toggle, #audio-help').count(), 0);
     await picture(page, 'tv-desktop');
+
+    /* Cover the fresh-page path before any track change has called load(). */
+    await page.locator('#music-toggle').click();
+    await playing(page);
+    await selected(page, 0, false);
+    await page.waitForFunction(() => document.getElementById('background-music').currentTime > 1);
+    await page.locator('#music-toggle').click();
+    const pausedAt = (await selected(page, 0, true)).time;
+    await page.locator('#music-toggle').click();
+    await playing(page);
+    assert.ok((await selected(page, 0, false)).time >= pausedAt - 0.1);
+    await page.locator('#music-toggle').click();
+    await selected(page, 0, true);
+    pass('fresh-page first playback works before track navigation; pause/resume preserves position');
+
     await page.keyboard.press('ArrowDown');
     assert.equal((await state(page)).focus, 'fullscreen-toggle');
     await page.keyboard.press('ArrowRight');
