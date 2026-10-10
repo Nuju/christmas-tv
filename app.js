@@ -179,6 +179,7 @@
     var trackIndex = 0;
     var wanted = false;
     var attempt = 0;
+    var sourcePrepared = false;
 
     function supports(type) {
       var result;
@@ -212,19 +213,26 @@
       return "./assets/tv/" + tracks[trackIndex].file + ".mp3";
     }
 
-    function switchSource(resume) {
+    function prepareSource() {
       /* Ignore callbacks from the source that load() is about to abort. */
       wanted = false;
       attempt += 1;
+      sourcePrepared = false;
       music.pause();
       updateTrack();
       try {
         music.src = source();
         music.load();
+        sourcePrepared = true;
       } catch (error) {
-        failed("音楽を切り替えられませんでした。もう一度お試しください");
-        return;
+        failed("音楽を読み込めませんでした。もう一度お試しください");
+        return false;
       }
+      return true;
+    }
+
+    function switchSource(resume) {
+      if (!prepareSource()) { return; }
       if (resume) { startMusic(); }
       else { setState(false, ""); }
     }
@@ -242,12 +250,13 @@
 
     function startMusic() {
       var result, currentAttempt;
+      /* Give the first play the same explicit setup as a track change. */
+      if ((!sourcePrepared || music.error) && !prepareSource()) { return; }
       wanted = true;
       attempt += 1;
       currentAttempt = attempt;
       setState(true, "音楽を準備しています…");
       try {
-        if (music.error) { music.load(); }
         /* Keep play() in the user gesture. Older TVs may return undefined. */
         result = music.play();
         if (result && typeof result.then === "function") {
