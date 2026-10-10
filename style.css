@@ -20,6 +20,28 @@ body { color: #284c3a; font-family: Georgia, "Times New Roman", serif; }
   background: #f7efdd url("./assets/christmas-background.png") no-repeat center center;
   background-size: cover;
 }
+/* Broad candlelight stays at the viewport's lower edge, beneath the lantern. */
+.ambient-light {
+  position: absolute; z-index: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
+  overflow: hidden; pointer-events: none;
+}
+.ambient-glow {
+  position: absolute;
+  pointer-events: none;
+  background: radial-gradient(ellipse, rgba(255,182,59,0.28) 0%, rgba(255,194,78,0.14) 35%, rgba(255,209,117,0) 72%);
+  opacity: 0.84;
+  -webkit-transform-origin: 50% 50%; transform-origin: 50% 50%;
+  -webkit-animation: lantern-glow 7.7s ease-in-out infinite;
+  animation: lantern-glow 7.7s ease-in-out infinite;
+}
+.ambient-glow-left { left: 14%; bottom: -24%; width: 43%; height: 63%; }
+.ambient-glow-right {
+  right: 16%; bottom: -21%; width: 36%; height: 52%;
+  background: radial-gradient(ellipse, rgba(255,182,59,0.2) 0%, rgba(255,194,78,0.1) 35%, rgba(255,209,117,0) 72%);
+  -webkit-animation-duration: 9.1s; animation-duration: 9.1s;
+  -webkit-animation-delay: -4.2s; animation-delay: -4.2s;
+}
 /* Match the 1672 x 941 background's centered cover crop at every viewport size. */
 .lantern-light {
   position: absolute; z-index: 0;
@@ -203,7 +225,7 @@ h1 {
 }
 @media (prefers-reduced-motion: reduce) {
   .snow { display: none; }
-  .lantern-halo, .lantern-reflection, .lantern-flame { -webkit-animation: none; animation: none; }
+  .ambient-glow, .lantern-halo, .lantern-reflection, .lantern-flame { -webkit-animation: none; animation: none; }
   .music-controls, #music-status, #display-status { -webkit-transition: none; transition: none; }
 }
 @media screen and (max-aspect-ratio: 4/3) {
