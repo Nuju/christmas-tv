@@ -57,23 +57,24 @@ files. The player uses compatibility versions in `assets/tv/`, produced with
 playback levels have been reduced; the music, arrangement and duration have not
 been intentionally changed.
 
-Each track has an AAC-LC version in an M4A container and a constant-bitrate MP3
-version. Both use 48 kHz stereo, without the original embedded artwork or legacy
-metadata. M4A files place their index before the audio data. The bitrate targets
-are 80 kbps in both formats for the long Wish Background recording, and 128 kbps
-AAC / 160 kbps MP3 for the two shorter recordings. The smaller Wish versions
-trade some audio fidelity for lower download size; the full-quality original
+Each track has a constant-bitrate MP3 version using 48 kHz stereo, without the
+original embedded artwork or legacy metadata. The bitrate targets are 80 kbps
+for the long Wish Background recording and 160 kbps for the two shorter
+recordings. The smaller Wish version trades some audio fidelity for lower
+download size; the full-quality original
 remains available in `assets/wish-background.mp3`.
 
-AAC is preferred when supported, and the player offers an explicit AAC/MP3
-switch for devices that produce audible noise without reporting an error.
+AAC playback files and the format switch were removed after the user reported
+audible noise from AAC on their television on 2026-10-10. The player now uses
+MP3 only; existing MP3 files are unchanged. This does not establish whether
+MP3 is free from audible noise on the user's television.
 
-The previous playback gains are now applied inside both versions: 35% for Wish
+The playback gains are applied inside the MP3 versions: 35% for Wish
 Background, 50% for Deck the Halls A, and 75% for It Came Upon a Midnight Clear.
 The audio element uses volume 1 to avoid applying the reduction twice and to
 keep these levels on TVs that ignore the element's volume property. The selected
 track repeats. Its title, author, source link, CC BY 4.0 link and notice of the
-format/volume adjustments remain visible when the controls fade out.
+re-encoding/volume adjustments remain visible when the controls fade out.
 
 Track metadata source: https://incompetech.com/music/royalty-free/pieces.json
 
