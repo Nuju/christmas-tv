@@ -83,17 +83,14 @@ h1 {
 #music-toggle[aria-pressed="true"] {
   background: #f5eddb; color: #6b4436; border-color: #b59674;
 }
-#music-track, #music-help, #audio-help, #music-status, #display-status {
+#music-track, #music-help, #music-status, #display-status {
   margin: 0.7em 0 0; font-size: 17px; font-size: 1.1vw;
   line-height: 1.5; color: #665d48;
 }
 #music-track { color: #6b4436; }
-#music-help, #audio-help { visibility: hidden; }
+#music-help { visibility: hidden; }
 .music-controls:hover #music-help,
-.music-controls:hover #audio-help,
-.keyboard-controls #music-help,
-.keyboard-controls #audio-help { visibility: visible; }
-#audio-help { margin-top: 0.25em; font-size: 15px; font-size: 0.95vw; }
+.keyboard-controls #music-help { visibility: visible; }
 #music-status:empty, #display-status:empty { display: none; }
 .display-buttons { margin-top: 0.65em; }
 .setting-button {
@@ -109,7 +106,7 @@ h1 {
 .music-idle .music-controls, .music-idle #music-status, .music-idle #display-status {
   opacity: 0; pointer-events: none;
 }
-.music-idle #music-help, .music-idle #audio-help { visibility: hidden; }
+.music-idle #music-help { visibility: hidden; }
 .music-credit { margin: 0.8em 0 0; font-size: 12px; font-size: 0.85vw; line-height: 1.5; }
 .music-credit, .music-credit a { color: #71664f; }
 .music-credit a { text-decoration: underline; }
@@ -149,6 +146,5 @@ h1 {
   .music-skip { font-size: 25px; min-width: 42px; }
   .setting-button { font-size: 14px; min-width: 110px; }
   #music-track, #music-help, #music-status, #display-status { font-size: 14px; }
-  #audio-help { font-size: 12px; }
   .music-credit { font-size: 11px; }
 }

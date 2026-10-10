@@ -36,14 +36,13 @@
     var previous = document.getElementById("music-previous");
     var next = document.getElementById("music-next");
     var fullscreen = document.getElementById("fullscreen-toggle");
-    var format = document.getElementById("audio-format-toggle");
     var idleTimer = null;
     var controlsHidden = false;
     var keyboardMode = false;
     var wakeKey = 0;
     var navigationKey = 0;
     var trackHandler = null;
-    var buttons = [previous, play, next, fullscreen, format];
+    var buttons = [previous, play, next, fullscreen];
     var i;
 
     function isPlaybackTarget(target) {
@@ -51,7 +50,7 @@
     }
 
     function isControlTarget(target) {
-      return isPlaybackTarget(target) || target === fullscreen || target === format;
+      return isPlaybackTarget(target) || target === fullscreen;
     }
 
     function canHide() {
@@ -116,15 +115,13 @@
         } else if (code === 38 || code === 40) {
           if (isPlaybackTarget(target)) {
             if (!fullscreen.disabled) { fullscreen.focus(); }
-            else if (!format.disabled) { format.focus(); }
           } else { focusPlayback(); }
         } else if (isPlaybackTarget(target)) {
           if (trackHandler && !play.disabled) {
             play.focus();
             trackHandler(code === 37 ? -1 : 1);
           }
-        } else if (target === fullscreen && !format.disabled) { format.focus(); }
-        else if (!fullscreen.disabled) { fullscreen.focus(); }
+        }
       } else if ((code === 13 || code === 32) && target === document.body) {
         event.preventDefault();
         focusPlayback();
@@ -162,7 +159,6 @@
     var button = document.getElementById("music-toggle");
     var previous = document.getElementById("music-previous");
     var next = document.getElementById("music-next");
-    var formatButton = document.getElementById("audio-format-toggle");
     var trackLabel = document.getElementById("music-track");
     var credit = document.getElementById("music-credit-track");
     var status = document.getElementById("music-status");
@@ -180,14 +176,9 @@
         url: "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100191"
       }
     ];
-    var formats = [];
-    var formatIndex = 0;
     var trackIndex = 0;
     var wanted = false;
     var attempt = 0;
-    var fallbackTried = false;
-    var pendingSeek = null;
-    var savedFormat, i;
 
     function supports(type) {
       var result;
@@ -215,30 +206,17 @@
       trackLabel.textContent = (trackIndex + 1) + " / " + tracks.length + "　" + track.mood;
       credit.textContent = track.title + " — Kevin MacLeod";
       credit.href = track.url;
-      formatButton.textContent = "音声：" + formats[formatIndex].label;
-      formatButton.setAttribute("aria-label", "音声形式：" + formats[formatIndex].label +
-        (formats.length > 1 ? "。決定で切り替え" : ""));
     }
 
     function source() {
-      return "./assets/tv/" + tracks[trackIndex].file + "." + formats[formatIndex].extension;
+      return "./assets/tv/" + tracks[trackIndex].file + ".mp3";
     }
 
-    function restorePosition() {
-      var position;
-      if (!pendingSeek || music.readyState < 1 || music.currentSrc !== music.src) { return; }
-      position = pendingSeek;
-      pendingSeek = null;
-      if (isFinite(music.duration)) { position = Math.min(position, Math.max(0, music.duration - 0.1)); }
-      try { music.currentTime = position; } catch (error) { /* Some TVs cannot seek yet. */ }
-    }
-
-    function switchSource(resume, position) {
+    function switchSource(resume) {
       /* Ignore callbacks from the source that load() is about to abort. */
       wanted = false;
       attempt += 1;
       music.pause();
-      pendingSeek = position > 0 ? position : null;
       updateTrack();
       try {
         music.src = source();
@@ -253,22 +231,12 @@
 
     function playbackFailed(error) {
       var code = music.error && music.error.code;
-      var resume = wanted;
-      var position = music.currentTime;
-      /* Audible noise does not raise an error. The format button remains available. */
-      if ((code === 3 || code === 4 || (error && error.name === "NotSupportedError")) &&
-          !fallbackTried && formats.length > 1) {
-        fallbackTried = true;
-        formatIndex = (formatIndex + 1) % formats.length;
-        switchSource(resume, position);
-        return;
-      }
       if (error && error.name === "NotAllowedError") {
         failed("音楽の再生を許可するため、もう一度、再生を押してください");
       } else if (code === 2) {
         failed("音楽を読み込めませんでした。通信を確認して、もう一度お試しください");
       } else {
-        failed("音楽を再生できませんでした。再生を押すか、音声形式を切り替えてください");
+        failed("音楽を再生できませんでした。もう一度、再生を押してください");
       }
     }
 
@@ -295,29 +263,18 @@
     function changeTrack(direction) {
       var resume = wanted;
       trackIndex = (trackIndex + direction + tracks.length) % tracks.length;
-      fallbackTried = false;
-      switchSource(resume, 0);
+      switchSource(resume);
     }
 
-    if (supports('audio/mp4; codecs="mp4a.40.2"') || supports("audio/mp4") || supports("audio/x-m4a")) {
-      formats.push({id: "aac", label: "AAC", extension: "m4a"});
-    }
-    if (supports("audio/mpeg")) { formats.push({id: "mp3", label: "MP3", extension: "mp3"}); }
-    if (!formats.length) {
+    if (!supports("audio/mpeg")) {
       status.textContent = "このブラウザーでは音楽を再生できません";
       return;
     }
-    try { savedFormat = window.localStorage.getItem("christmas-tv-audio-format-v1"); }
-    catch (error) { /* Storage is optional on TV browsers. */ }
-    for (i = 0; i < formats.length; i += 1) {
-      if (formats[i].id === savedFormat) { formatIndex = i; }
-    }
-    /* Matching, reduced levels are baked into both files, including on TVs that ignore volume. */
+    /* Reduced levels are baked into the files, including on TVs that ignore volume. */
     try { music.volume = 1; } catch (error) { /* Use the TV's volume control. */ }
     button.disabled = false;
     previous.disabled = false;
     next.disabled = false;
-    formatButton.disabled = formats.length < 2;
     music.src = source();
     updateTrack();
     setState(false, "");
@@ -325,15 +282,6 @@
 
     previous.addEventListener("click", function () { changeTrack(-1); }, false);
     next.addEventListener("click", function () { changeTrack(1); }, false);
-    formatButton.addEventListener("click", function () {
-      var resume = wanted;
-      var position = music.currentTime;
-      formatIndex = (formatIndex + 1) % formats.length;
-      fallbackTried = false;
-      try { window.localStorage.setItem("christmas-tv-audio-format-v1", formats[formatIndex].id); }
-      catch (error) { /* Playback also works without storage. */ }
-      switchSource(resume, position);
-    }, false);
     button.addEventListener("click", function () {
       if (wanted) {
         wanted = false;
@@ -341,15 +289,12 @@
         music.pause();
         setState(false, "");
       } else {
-        fallbackTried = false;
         startMusic();
       }
     }, false);
-    music.addEventListener("loadedmetadata", restorePosition, false);
     music.addEventListener("playing", function () {
       if (!wanted) { music.pause(); return; }
       if (music.paused || music.readyState < 3) { return; }
-      restorePosition();
       setState(true, "");
     }, false);
     music.addEventListener("waiting", function () {
