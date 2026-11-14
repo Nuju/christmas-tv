@@ -83,7 +83,9 @@ Track metadata source: https://incompetech.com/music/royalty-free/pieces.json
 Background made with the built-in OpenAI image generation tool for this page.
 Prompt summary: a warm ivory gouache Christmas card with evergreen branches,
 red ribbons, a decorated tree and two cuddling rabbits, with an empty center
-for the names. The source image is used without edits.
+for the names. The source image `assets/christmas-background.png` is kept
+without edits; the page displays `assets/christmas-background.jpg`, a JPEG
+re-encoding of it at the same size.
 
 ## Font
 
