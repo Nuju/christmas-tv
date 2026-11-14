@@ -1,0 +1,11 @@
+{
+  "name": "christmas-tv",
+  "private": true,
+  "description": "Miki & Saki のクリスマス画面（静的ページ）",
+  "scripts": {
+    "test": "node tests/browser-smoke.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}

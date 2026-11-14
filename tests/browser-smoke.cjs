@@ -25,7 +25,7 @@ const server = http.createServer((request, response) => {
   const end = range && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
   if (start > end) { response.writeHead(416).end(); return; }
   const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-    '.css': 'text/css', '.mp3': 'audio/mpeg', '.png': 'image/png', '.ttf': 'font/ttf' };
+    '.css': 'text/css', '.mp3': 'audio/mpeg', '.png': 'image/png', '.jpg': 'image/jpeg', '.ttf': 'font/ttf' };
   const headers = { 'Content-Type': mime[path.extname(file)] || 'application/octet-stream',
     'Content-Length': end - start + 1, 'Accept-Ranges': 'bytes' };
   if (range) { headers['Content-Range'] = 'bytes ' + start + '-' + end + '/' + size; }
