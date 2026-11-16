@@ -174,6 +174,10 @@
       {
         title: "It Came Upon a Midnight Clear", mood: "静かな夜のピアノと室内楽", file: "it-came-upon-a-midnight-clear",
         url: "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100191"
+      },
+      {
+        title: "Angels We Have Heard", mood: "讃美歌「荒野の果てに」", file: "angels-we-have-heard",
+        url: "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100329"
       }
     ];
     var trackIndex = 0;

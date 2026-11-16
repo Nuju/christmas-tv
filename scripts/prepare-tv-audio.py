@@ -5,7 +5,7 @@ Run from any directory with Python 3 and FFmpeg already installed:
     python3 scripts/prepare-tv-audio.py
 
 The original assets/*.mp3 files are read without modification. Outputs replace
-only the three MP3 files in assets/tv/. These files contain the player gain, so the
+only the MP3 files in assets/tv/. These files contain the player gain, so the
 media element must use volume=1 when playing these versions. Re-encoding is a
 compatibility option; successful playback still depends on the TV browser.
 Wish Background uses 80 kbps so its full 19-minute recording
@@ -26,6 +26,8 @@ TRACKS = (
     ("wish-background", "0.35", "80k"),
     ("deck-the-halls-a", "0.5", "160k"),
     ("it-came-upon-a-midnight-clear", "0.75", "160k"),
+    # A full, louder mix than the others, so it needs the largest reduction.
+    ("angels-we-have-heard", "0.25", "160k"),
 )
 
 
