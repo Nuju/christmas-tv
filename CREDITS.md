@@ -2,7 +2,7 @@
 
 ## Music
 
-All three recordings are by Kevin MacLeod (incompetech.com).
+All four recordings are by Kevin MacLeod (incompetech.com).
 
 Licensed under Creative Commons: By Attribution 4.0
 https://creativecommons.org/licenses/by/4.0/
@@ -49,6 +49,23 @@ Local file: `assets/it-came-upon-a-midnight-clear.mp3`
 Duration listed by the author: 4 minutes 26 seconds. Piano, violin and English horn.
 Accessed 2026-10-09.
 
+### Angels We Have Heard
+
+Kevin MacLeod (incompetech.com)
+
+Original MP3: https://incompetech.com/music/royalty-free/mp3-royaltyfree/Angels%20We%20Have%20Heard.mp3
+(inferred from the name of the file supplied by the site owner; not opened
+when this entry was written)
+
+Local file: `assets/angels-we-have-heard.mp3`
+
+Supplied by the site owner on 2026-11-16. The file's own tags give the title
+"Angels We Have Heard", artist Kevin MacLeod, composer Traditional, comment
+incompetech.com. Measured duration: 2 minutes 26 seconds. This is not the
+4-minute solo piano recording "Angels We Have Heard on High (piano)". The
+track page (ISRC) has not been confirmed yet, so the on-screen credit links to
+https://incompetech.com/ until it is.
+
 ### Playback
 
 The original MP3 recordings listed above remain included without edits as source
@@ -59,7 +76,7 @@ been intentionally changed.
 
 Each track has a constant-bitrate MP3 version using 48 kHz stereo, without the
 original embedded artwork or legacy metadata. The bitrate targets are 80 kbps
-for the long Wish Background recording and 160 kbps for the two shorter
+for the long Wish Background recording and 160 kbps for the three shorter
 recordings. The smaller Wish version trades some audio fidelity for lower
 download size; the full-quality original
 remains available in `assets/wish-background.mp3`.
@@ -70,7 +87,8 @@ MP3 only; existing MP3 files are unchanged. This does not establish whether
 MP3 is free from audible noise on the user's television.
 
 The playback gains are applied inside the MP3 versions: 35% for Wish
-Background, 50% for Deck the Halls A, and 75% for It Came Upon a Midnight Clear.
+Background, 50% for Deck the Halls A, 75% for It Came Upon a Midnight Clear,
+and 25% for Angels We Have Heard, which is a much louder recording.
 The audio element uses volume 1 to avoid applying the reduction twice and to
 keep these levels on TVs that ignore the element's volume property. The selected
 track repeats. Its title, author, source link, CC BY 4.0 link and notice of the

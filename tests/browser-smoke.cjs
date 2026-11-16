@@ -6,8 +6,9 @@ const http = require('node:http');
 const { chromium } = require('playwright');
 
 const root = path.resolve(__dirname, '..');
-const tracks = ['wish-background', 'deck-the-halls-a', 'it-came-upon-a-midnight-clear'];
-const names = ['Wish Background', 'Deck the Halls A', 'It Came Upon a Midnight Clear'];
+const tracks = ['wish-background', 'deck-the-halls-a', 'it-came-upon-a-midnight-clear', 'angels-we-have-heard'];
+const last = tracks.length - 1;
+const names = ['Wish Background', 'Deck the Halls A', 'It Came Upon a Midnight Clear', 'Angels We Have Heard'];
 const errors = [];
 const audioRequests = [];
 const passed = [];
@@ -53,7 +54,7 @@ async function selected(page, index, paused) {
   const s = await state(page);
   assert.equal(s.src, './assets/tv/' + tracks[index] + '.mp3');
   assert.equal(s.credit, names[index] + ' — Kevin MacLeod');
-  assert.ok(s.label.startsWith((index + 1) + ' / 3'));
+  assert.ok(s.label.startsWith((index + 1) + ' / ' + tracks.length));
   assert.equal(s.loop, true);
   assert.equal(s.volume, 1);
   if (paused !== undefined) { assert.equal(s.paused, paused); }
@@ -130,10 +131,10 @@ async function picture(page, name) {
     await selected(page, 1, true);
     await page.keyboard.press('ArrowLeft');
     await page.keyboard.press('ArrowLeft');
-    await selected(page, 2, true);
+    await selected(page, last, true);
     await page.locator('#music-credit-track').focus();
     await page.keyboard.press('ArrowRight');
-    await selected(page, 2, true);
+    await selected(page, last, true);
     await page.locator('#music-next').click();
     await selected(page, 0, true);
     pass('no autoplay/download; remote navigation, held arrows, credits and wraparound');
@@ -141,15 +142,15 @@ async function picture(page, name) {
     await page.locator('#music-toggle').click();
     for (let i = 0; i < tracks.length; i++) {
       await playing(page);
-      assert.ok((await selected(page, i, false)).duration > 200);
+      assert.ok((await selected(page, i, false)).duration > 120);
       pass('native MP3 playback: ' + names[i]);
-      if (i < 2) { await page.locator('#music-next').click(); }
+      if (i < last) { await page.locator('#music-next').click(); }
     }
     await page.evaluate(() => { const a = document.getElementById('background-music'); a.currentTime = a.duration - 0.25; });
     await page.waitForFunction(() => { const a = document.getElementById('background-music'); return !a.paused && a.currentTime < 1.5; });
     pass('MP3 loops at its actual end');
     await page.locator('#music-toggle').click();
-    await selected(page, 2, true);
+    await selected(page, last, true);
     await page.reload();
     await selected(page, 0, true);
     assert.equal(await page.locator('#audio-format-toggle, #audio-help').count(), 0);
