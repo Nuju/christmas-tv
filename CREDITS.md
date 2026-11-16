@@ -53,18 +53,16 @@ Accessed 2026-10-09.
 
 Kevin MacLeod (incompetech.com)
 
-Original MP3: https://incompetech.com/music/royalty-free/mp3-royaltyfree/Angels%20We%20Have%20Heard.mp3
-(inferred from the name of the file supplied by the site owner; not opened
-when this entry was written)
+Track: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100329
 
 Local file: `assets/angels-we-have-heard.mp3`
 
-Supplied by the site owner on 2026-11-16. The file's own tags give the title
-"Angels We Have Heard", artist Kevin MacLeod, composer Traditional, comment
-incompetech.com. Measured duration: 2 minutes 26 seconds. This is not the
-4-minute solo piano recording "Angels We Have Heard on High (piano)". The
-track page (ISRC) has not been confirmed yet, so the on-screen credit links to
-https://incompetech.com/ until it is.
+Downloaded from the track page above by the site owner and supplied on
+2026-11-16. The file's own tags give the title "Angels We Have Heard", artist
+Kevin MacLeod, composer Traditional, comment incompetech.com. Measured
+duration: 2 minutes 26 seconds. The track page could not be opened from the
+environment where this entry was written, so the title and duration here come
+from the file itself.
 
 ### Playback
 

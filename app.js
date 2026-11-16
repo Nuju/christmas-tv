@@ -177,7 +177,7 @@
       },
       {
         title: "Angels We Have Heard", mood: "讃美歌「荒野の果てに」", file: "angels-we-have-heard",
-        url: "https://incompetech.com/"
+        url: "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100329"
       }
     ];
     var trackIndex = 0;
